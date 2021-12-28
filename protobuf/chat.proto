@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package models;
+
+enum IdentifierPrefix {
+    USER=0;
+    MEG=1;
+    ROOM=2;
+    GROUP=3;
+    REACTION=4;
+}
+
+message Identifier {
+    IdentifierPrefix prefix = 1;
+    string id =2;
+}
+
+message User {
+    Identifier id =1;
+    string first_name=2;
+    string last_name=3;
+    int32 age=4;
+    string e_mail_id=5;
+}
+
+enum ReactionType {
+    LIKE=0;
+    DISLIKE=1;
+    LOVE=2;
+}
+
+message Reaction {
+    ReactionType type=1;
+}
+
+message GroupInChatRoom {
+    Identifier id =1;
+    string name=2;
+    Identifier admin=3;
+    Identifier created_by=4;
+    repeated Identifier users=5;
+}
+
+message ChatRoom {
+    Identifier id =1;
+    string name=2;
+    Identifier admin=3;
+    Identifier created_by=4;
+    repeated Identifier users=5;
+    repeated Identifier groups=6;
+}
+
+message ChatMessage{
+    Identifier id=1;
+    Identifier sender=2;
+    string data=3;
+    Identifier replied_to=4;
+    Identifier chat_room=5;
+    Identifier group_in_chat_room=6;
+    repeated Identifier reactions=7;
+}
+
+option go_package = "./protobuf";
